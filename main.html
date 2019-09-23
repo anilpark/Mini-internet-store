@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js"></script>
+    <title>Client</title>
+</head>
+<body>
+    <header class="header">
+        <div class="logo">
+            <div class="logo_text">Store of something</div>
+        </div>
+        <div class="buttons">
+            <button class="btn admin__btn" id="admin__btn">Admin</button>
+            <button class="btn client__btn" id="client__btn" disabled>Client</button>
+        </div>
+    </header>
+
+    <div id="admin__page" class="admin__page">
+        <table id="goods__table" class="goods__table">
+            <tr>
+                <th>Code</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Price</th>
+                <th>Available</th>
+                <th>Image</th>
+                <th>Actions</th>
+            </tr>
+        </table>
+        <div class="add__btn__wrapper">
+            <button class="add__btn" id="add__btn">ADD</button>
+        </div>
+
+        <div class="admin__form__wrapper" id="admin__form__wrapper">
+            <form action="" name="admin__form" id="admin__form">
+                <input type="number" min="0" max="9999" id="code" placeholder="Code">
+                <br>
+                <input type="text" id="name" maxlength="15" placeholder="Name">
+                <br>
+                <textarea name="desc" id="desc" cols="30" rows="2" maxlength="100" placeholder="Description"></textarea>
+                <br>
+                <input type="number" min="0" max="9999" id="price" placeholder="Price">
+                <br>
+                <label for="avlbl">Available:</label>
+                <input type="checkbox" id="avlbl">
+                <br>
+                <label for="img">Image:</label>
+                <input type="file" accept=".png, .jpg, .jpeg" id="img">
+                <br>
+                <input type="button" value="Add" id="add__form__btn" onclick="checkForm()">
+                <input type="button" value="Save" id="save__form__btn" disabled>
+            </form>
+        </div>
+    </div>
+
+    <div class="client__page" id="client__page">
+        <div class="goods__available" id="goods__available">
+
+        </div>
+        <div class="cart" id="cart">
+            <div class="addedItems" id="added__items">
+
+            </div>
+            <div class="total__price" id="total__price">
+                $0
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,38 +1,28 @@
-const THEAD = '<tr>\n' +
-    '                <th>Code</th>\n' +
-    '                <th>Name</th>\n' +
-    '                <th>Description</th>\n' +
-    '                <th>Price</th>\n' +
-    '                <th>Available</th>\n' +
-    '                <th>Image</th>\n' +
-    '                <th>Actions</th>\n' +
-    '            </tr>';
-
 let goods = [],
     availableGoods = [],
     addedGoods = [];
 
-window.onload = function() {
+window.onload = function () {
     setStandardGoods();
     updateAvailableGoods();
 
     let adminBtn = document.getElementById('admin__btn');
     let clientBtn = document.getElementById('client__btn');
 
-    adminBtn.onclick = function() {
+    adminBtn.onclick = function () {
         document.getElementById('client__page').style.display = 'none';
         document.getElementById('admin__page').style.display = 'block';
         adminBtn.disabled = true;
         clientBtn.disabled = false;
     };
 
-    clientBtn.onclick = function (){
+    clientBtn.onclick = function () {
         updateAvailableGoods();
         clearCart();
-        document.getElementById('admin__page').style.display = 'none';
-        document.getElementById('client__page').style.display = 'flex';
         clientBtn.disabled = true;
         adminBtn.disabled = false;
+        document.getElementById('admin__page').style.display = 'none';
+        document.getElementById('client__page').style.display = 'flex';
     };
 
     document.getElementById('add__btn').onclick = function () {
@@ -49,28 +39,28 @@ function checkForm(pos) {
         desc = document.getElementById('desc').value,
         price = document.getElementById('price').value;
 
-    if(!code) errMsg += 'Enter the code of good\n';
-    if(!name) errMsg += 'Enter the name of good\n';
-    if(!desc) errMsg += 'Enter the description of good\n';
+    if (!code) errMsg += 'Enter the code of good\n';
+    if (!name) errMsg += 'Enter the name of good\n';
+    if (!desc) errMsg += 'Enter the description of good\n';
     //if(!price) errMsg += 'Enter the price of good\n';
-    if(!checkPrice()) errMsg += 'Enter the correct price\n';
+    if (!checkPrice()) errMsg += 'Enter the correct price\n';
 
-    if(!checkCode(code)) errMsg += 'Good with this code already exists\n';
-    if(!checkImage()) errMsg += 'Add any picture\n';
+    if (!checkCode(code)) errMsg += 'Good with this code already exists\n';
+    if (!checkImage()) errMsg += 'Add any picture\n';
 
-    if(errMsg){
+    if (errMsg) {
         alert(errMsg);
-    }else {
-        if(pos || pos === 0){
+    } else {
+        if (pos || pos === 0) {
             addGood(pos);
             return;
         }
         addGood();
     }
-    //check if the code of good is unique
-    function checkCode(code){
-        for (let i = 0; i < goods.length; i++){
-            if(goods[i].code === code) return false;
+
+    function checkCode(code) {
+        for (let i = 0; i < goods.length; i++) {
+            if (goods[i].code === code) return false;
         }
 
         return true;
@@ -90,43 +80,51 @@ function checkForm(pos) {
 }
 
 function updateGoodsTable() {
+    const THEAD = '<tr>\n' +
+        '                <th>Code</th>\n' +
+        '                <th>Name</th>\n' +
+        '                <th>Description</th>\n' +
+        '                <th>Price</th>\n' +
+        '                <th>Available</th>\n' +
+        '                <th>Image</th>\n' +
+        '                <th>Actions</th>\n' +
+        '            </tr>';
     let table = document.getElementById('goods__table');
 
-    //table.children.length = 1; didn't work
     table.innerHTML = THEAD;
 
-    for(let i = 0; i < goods.length; i++){
-        let newRow = document.createElement('tr');
-        
+    for (let i = 0; i < goods.length; i++) {
+        let newRow = createEl('tr');
+
         for (let prop in goods[i]) {
-            let newCell = document.createElement('td');
+            let newCell = createEl('td');
 
-            if(prop === 'actions'){
-                 let editBtn = document.createElement("input"),
-                     removeBtm = document.createElement("input");
+            if (prop === 'actions') {
+                let editBtn = createEl("input"),
+                    removeBtm = createEl("input");
 
-                 editBtn.type = 'button';
-                 editBtn.value = 'edit';
-                 editBtn.onclick = function (){
-                     editGood(i);
-                 };
+                editBtn.type = 'button';
+                editBtn.value = 'edit';
+                editBtn.onclick = function () {
+                    editGood(i);
+                };
 
-                 removeBtm.type = 'button';
-                 removeBtm.value = 'remove';
-                 removeBtm.onclick = function() {
-                     removeGood(i);
-                 };
+                removeBtm.type = 'button';
+                removeBtm.value = 'remove';
+                removeBtm.onclick = function () {
+                    removeGood(i);
+                };
 
-                 newCell.appendChild(editBtn);
-                 newCell.appendChild(removeBtm);
+                newCell.appendChild(editBtn);
+                newCell.appendChild(removeBtm);
 
-                 newRow.appendChild(newCell);
+                newRow.appendChild(newCell);
 
-                 continue;
+                continue;
             }
 
-            if(prop === 'img') {
-                let newPic = document.createElement('img');
+            if (prop === 'img') {
+                let newPic = createEl('img');
 
                 newPic.width = 70;
                 newPic.height = 70;
@@ -145,11 +143,11 @@ function updateGoodsTable() {
     }
 }
 
-function Good(code, name, des, prc, available, img){
-    this.code = code;
+function Good(code, name, des, prc, available, img) {
+    this.code = +code;
     this.name = name;
     this.des = des;
-    this.price = prc;
+    this.price = +prc;
     this.avlbl = available;
     this.img = img;
 
@@ -164,7 +162,7 @@ function addGood(pos) {
 
     reader.readAsDataURL(file);
 
-    reader.onload = function() {
+    reader.onload = function () {
         let code = document.getElementById('code').value,
             name = document.getElementById('name').value,
             desc = document.getElementById('desc').value,
@@ -172,10 +170,10 @@ function addGood(pos) {
             avlbl = document.getElementById('avlbl').checked,
             img = reader.result;
 
-        if(pos || pos === 0){
-            goods.splice(pos, 1, new Good(+code, name, desc, +price, avlbl, img));
-        }else {
-            goods.push(new Good(+code, name, desc, +price, avlbl, img));
+        if (pos || pos === 0) {
+            goods.splice(pos, 1, new Good(code, name, desc, price, avlbl, img));
+        } else {
+            goods.push(new Good(code, name, desc, price, avlbl, img));
         }
         updateGoodsTable();
         setAddMode();
@@ -206,7 +204,7 @@ function setStandardGoods() {
             'img/wand.jpg',
         ];
 
-    for (let i = 0; i < STANDART__GOODS__COUNT; i++){
+    for (let i = 0; i < STANDART__GOODS__COUNT; i++) {
         goods.push(new Good(codes[i], names[i], description[i], prices[i], availables[i], images[i]));
     }
 
@@ -228,6 +226,71 @@ function editGood(pos) {
         desc.value = goods[pos].des,
         avlbl.checked = goods[pos].avlbl,
         price.value = goods[pos].price;
+}
+
+function updateAvailableGoods() {
+    availableGoods = goods.filter(function (item) {
+        return item.avlbl;
+    });
+
+    let goodAvailable = document.getElementById('goods__available');
+    goodAvailable.innerHTML = '';
+
+    for (let i = 0; i < availableGoods.length; i++) {
+        let item = createEl('div', 'item'),
+            good__image = createEl('div', 'good__image'),
+            good__description = createEl('div', 'good__description'),
+            good__name = createEl('div', 'good__name'),
+            description__text = createEl('div', 'description__text'),
+            good__actions = createEl('div', 'good__actions'),
+            good__price = createEl('div', 'good__price'),
+            addToListBtn = createEl('input'),
+            img = createEl('img');
+
+        //image
+        img.src = availableGoods[i].img;
+        good__image.appendChild(img);
+
+        //description
+        good__name.innerHTML = availableGoods[i].name;
+        description__text.innerHTML = availableGoods[i].des;
+        good__description.appendChild(good__name);
+        good__description.appendChild(description__text);
+
+        //actions
+        good__price.innerHTML = '$' + availableGoods[i].price;
+        good__actions.appendChild(good__price);
+        addToListBtn.type = 'button';
+        addToListBtn.value = 'WANT!';
+        addToListBtn.onclick = function () {
+            addedGoods.push(availableGoods[i]);
+            addItemToList();
+        };
+        good__actions.appendChild(addToListBtn);
+
+
+        item.appendChild(good__image);
+        item.appendChild(good__description);
+        item.appendChild(good__actions);
+
+        goodAvailable.appendChild(item);
+    }
+}
+
+function addItemToList() {
+    let total = 0,
+        list = '';
+
+    let added = document.getElementById('added__items'),
+        totalPrice = document.getElementById('total__price');
+
+    for (let i = 0; i < addedGoods.length; i++) {
+        total += addedGoods[i].price;
+        list += addedGoods[i].name + '<br/>';
+    }
+
+    added.innerHTML = list;
+    totalPrice.innerHTML = `$${total}`;
 }
 
 function showForm() {
@@ -263,81 +326,10 @@ function setAddMode() {
 }
 
 function removeGood(pos) {
-    if(confirm('Are you sure?')){
+    if (confirm('Are you sure?')) {
         goods.splice(pos, 1);
         updateGoodsTable();
     }
-}
-
-function updateAvailableGoods() {
-    availableGoods = goods.filter(function (item) {
-        return item.avlbl;
-    });
-
-    let goodAvailable = document.getElementById('goods__available');
-    goodAvailable.innerHTML = '';
-
-    for (let i = 0; i < availableGoods.length; i++){
-        let item = createEl('div','item'),
-            good__image = createEl('div','good__image'),
-            good__description = createEl('div', 'good__description'),
-            good__name = createEl('div', 'good__name'),
-            description__text = createEl('div', 'description__text'),
-            good__actions = createEl('div','good__actions'),
-            good__price = createEl('div','good__price'),
-            addToListBtn = createEl('input'),
-            img = createEl('img');
-
-        //image
-        img.src = availableGoods[i].img;
-        good__image.appendChild(img);
-
-        //description
-        good__name.innerHTML = availableGoods[i].name;
-        description__text.innerHTML = availableGoods[i].des;
-        good__description.appendChild(good__name);
-        good__description.appendChild(description__text);
-
-        //actions
-        good__price.innerHTML = '$' + availableGoods[i].price;
-        good__actions.appendChild(good__price);
-        addToListBtn.type = 'button';
-        addToListBtn.value = 'Add item';
-        addToListBtn.onclick = function(){
-            addedGoods.push(availableGoods[i]);
-            addItemToList();
-        };
-        good__actions.appendChild(addToListBtn);
-
-
-        item.appendChild(good__image);
-        item.appendChild(good__description);
-        item.appendChild(good__actions);
-
-        goodAvailable.appendChild(item);
-    }
-}
-
-function createEl(el, cl) {
-    let element = document.createElement(el);
-    if(el) element.classList.add(cl);
-    return element;
-}
-
-function addItemToList() {
-    let total = 0,
-        list = '';
-
-    let added = document.getElementById('added__items'),
-        totalPrice = document.getElementById('total__price');
-
-    for(let i = 0; i < addedGoods.length; i++){
-        total += addedGoods[i].price;
-        list += addedGoods[i].name + '<br/>';
-    }
-
-    added.innerHTML = list;
-    totalPrice.innerHTML = `$${total}`;
 }
 
 function clearCart() {
@@ -347,4 +339,10 @@ function clearCart() {
     added.innerHTML = '';
     totalPrice.innerHTML = '$0';
     addedGoods.length = 0;
+}
+
+function createEl(el, cl) {
+    let element = document.createElement(el);
+    if (el) element.classList.add(cl);
+    return element;
 }

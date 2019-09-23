@@ -1,15 +1,15 @@
-*{
+* {
     margin: 0;
     padding: 0;
 }
 
-html, body{
+html, body {
     height: 100%;
     font-family: sans-serif;
 }
 
 input[type='number'] {
-    -moz-appearance:textfield;
+    -moz-appearance: textfield;
 }
 
 input::-webkit-outer-spin-button,
@@ -18,71 +18,71 @@ input::-webkit-inner-spin-button {
 }
 
 
-.header{
+.header {
     height: 100px;
 }
 
-.logo{
+.logo {
     width: 300px;
     height: 100px;
     text-align: center;
     position: absolute;
 }
 
-.logo_text{
+.logo_text {
     position: relative;
     font: normal 34px sans-serif;
     margin-top: 25px;
 }
 
-.buttons{
+.switch__buttons {
     margin-right: 100px;
     margin-top: 30px;
     float: right;
 }
 
-.btn{
+.btn {
     width: 100px;
     padding: 5px;
     font-size: 20px;
 }
 
-.admin__btn{
+.admin__btn {
     background-color: crimson;
 }
 
-.client__btn{
+.client__btn {
     background-color: deepskyblue;
 }
 
-.admin__page{
+.admin__page {
     width: 100%;
     margin: 0 auto;
     display: none;
 }
 
-.goods__table{
+.goods__table {
     width: 70%;
     margin: 20px auto 0;
     border-collapse: collapse;
 }
 
-td{
+td {
     padding: 20px;
     border: 1px solid gray;
 }
 
-.table__img{
+.table__img {
     width: 70px;
     height: 70px;
 }
 
-.add__btn__wrapper{
+.add__btn__wrapper {
     width: 100px;
     margin: 30px auto;
 }
 
-.add__btn{
+.add__btn {
     width: 100%;
     height: 40px;
 }
@@ -92,35 +92,35 @@ td{
     display: none;
 }
 
-#admin__form{
+#admin__form {
     width: 200px;
     margin: 0 auto;
 }
 
-textarea{
+textarea {
     resize: none;
 }
 
-#code{
+#code {
     width: 200px;
     font-size: 30px;
     margin-bottom: 10px;
 }
 
-#name{
+#name {
     width: 200px;
     font-size: 30px;
     margin-bottom: 5px;
 }
 
-#desc{
+#desc {
     width: 200px;
     height: 70px;
     margin-bottom: 10px;
     font-size: 18px;
 }
 
-#price{
+#price {
     width: 200px;
     font-size: 30px;
     margin-bottom: 10px;
@@ -131,38 +131,38 @@ label {
     color: crimson;
 }
 
-#add__form__btn, #save__form__btn{
+#add__form__btn, #save__form__btn {
     width: 70px;
     margin-top: 10px;
 }
 
-.goods__available{
+.goods__available {
     width: 70%;
     margin: 20px auto 0;
 }
 
-.item{
+.item {
     margin: 20px auto;
     display: flex;
     flex-direction: row;
 }
 
-.good__image{
+.good__image {
     margin: 0 auto;
     width: 25%;
 }
 
-.good__image img{
+.good__image img {
     width: 100%;
     height: 100%;
 }
 
-.good__description{
+.good__description {
     margin: 0 10px;
     width: 65%;
 }
 
-.good__actions{
+.good__actions {
     margin: 0 auto;
     width: 10%;
 }
@@ -183,14 +183,14 @@ label {
     color: #2b9700;
 }
 
-.cart{
+.cart {
     width: 300px;
     display: flex;
     flex-direction: row;
     margin: 20px;
 }
 
-.addedItems{
+.addedItems {
     width: 100%;
     text-align: center;
     margin: 10px;
@@ -198,15 +198,14 @@ label {
     color: darkslategray;
 }
 
-.total__price{
+.total__price {
     font-size: 40px;
     margin: 10px;
     color: green;
     font-weight: bold;
 }
 
-.client__page{
+.client__page {
     display: flex;
     flex-direction: row;
-
 }
